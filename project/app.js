@@ -4,6 +4,7 @@ var app = express();
 //var conn = db_config.init();
 
 // db_config.connect(conn);
+app.use(express.static(__dirname + "/public"));
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
@@ -25,11 +26,11 @@ app.get("/school", function (req, res) {
     else res.render("school.ejs", { list: rows });
   });
 });
-app.get("/search", function (req, res) {
+app.get("/samchunpo", function (req, res) {
   const sql = "select * from ";
   conn.query(sql, function (err, rows, fields) {
     if (err) console.log("oh Error..." + err);
-    else res.render("search.ejs", { list: rows });
+    else res.render("samchunpo.ejs", { list: rows });
   });
 });
 app.listen(3000, () => console.log("Server is running on port 3000..."));
