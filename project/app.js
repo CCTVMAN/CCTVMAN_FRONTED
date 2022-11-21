@@ -20,11 +20,12 @@ app.get("/cctv", function (req, res) {
   });
 });
 app.get("/school", function (req, res) {
-  const sql = "select * from ";
-  conn.query(sql, function (err, rows, fields) {
-    if (err) console.log("oh Error..." + err);
-    else res.render("school.ejs", { list: rows });
-  });
+  // const sql = "select * from ";
+  // conn.query(sql, function (err, rows, fields) {
+  //   if (err) console.log("oh Error..." + err);
+  //   else res.render("school.ejs", { list: rows });
+  // });
+  res.render("school.ejs");
 });
 app.get("/samchunpo", function (req, res) {
   const sql = "select * from ";
