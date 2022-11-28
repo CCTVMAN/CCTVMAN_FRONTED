@@ -6,19 +6,19 @@ var db_info = {
   port: "1521",
   user: "c##madang",
   password: "madang",
-  database: "MD_madang",
+  database: "project",
 };
 app.use(express.static(__dirname + "/public"));
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-app.get("/db", function (req, res) { });
+app.get("/db", function (req, res) {});
 app.get("/", function (req, res) {
   res.render("index.ejs");
 });
 app.get("/cctv", function (req, res) {
-  // const sql = "select * from busanaddress";
+  // const sql = "select * from ";
   // conn.query(sql, function (err, rows, fields) {
   //   if (err) console.log("oh Error..." + err);
   //   else res.render("cctv.ejs", { list: rows });
