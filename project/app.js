@@ -9,9 +9,9 @@ app.set("view engine", "ejs");
 async function fetchData() {
   try {
     const connection = await oracledb.getConnection({
-      user: "c##madang",
-      password: "madang",
-      connectString: "10.150.149.183/xe",
+      user: "dbproject",
+      password: "1234",
+      connectString: "localhost/xe",
     });
     const result = await connection.execute(sql);
     return result;
