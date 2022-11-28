@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BusanCCTV</title>
+  </head>
+  <body>
+    <div id="map" style="width: 500px; height: 500px"></div>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
+    ></script>
+    <script>
+      let list = "<%= JSON.stringify(list) %>";
+      list = list.replaceAll("&#34;", '"');
+      list = JSON.parse(list);
+      console.log(list);
+      var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
+        mapOption2 = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+      var map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
+      // 마커가 표시될 위치입니다
+      var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(map2);
+    </script>
+  </body>
+</html>
