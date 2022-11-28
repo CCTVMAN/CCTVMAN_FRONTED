@@ -31,6 +31,7 @@
       let list = "<%= JSON.stringify(list) %>";
       list = list.replaceAll("&#34;", '"');
       list = JSON.parse(list);
+      console.log("여기까진 왔군");
       console.log(list);
       var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
         mapOption2 = {

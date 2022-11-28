@@ -1,44 +1,43 @@
 var express = require("express");
 var app = express();
 var oracledb = require("oracledb");
-var db_info = {
-  host: "10.150.149.183",
-  port: "1521",
-  user: "c##madang",
-  password: "madang",
-  database: "project",
-};
-app.use(express.static(__dirname + "/public"));
 
+app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-app.get("/db", function (req, res) {});
+async function fetchData() {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbproject",
+      password: "1234",
+      connectString: "localhost/xe",
+    });
+    const result = await connection.execute(sql);
+    return result;
+  } catch (err) {
+    return err;
+  }
+}
+
 app.get("/", function (req, res) {
   res.render("index.ejs");
 });
 app.get("/cctv", function (req, res) {
-  // const sql = "select * from ";
-  // conn.query(sql, function (err, rows, fields) {
-  //   if (err) console.log("oh Error..." + err);
-  //   else res.render("cctv.ejs", { list: rows });
-  // });
   res.render("cctv.ejs");
 });
 app.get("/school", function (req, res) {
-  // const sql = "select * from ";
-  // conn.query(sql, function (err, rows, fields) {
-  //   if (err) console.log("oh Error..." + err);
-  //   else res.render("school.ejs", { list: rows });
-  // });
-  res.render("school.ejs", { list: { asdf: "asddddd" } });
+  let sql = "select * from schooladdress";
+  fetchData(sql)
+    .then((dbRes) => {
+      console.log(dbRes);
+      res.render("school.ejs", { list: dbRes });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 app.get("/samchunpo", function (req, res) {
-  // const sql = "select * from ";
-  // conn.query(sql, function (err, rows, fields) {
-  //   if (err) console.log("oh Error..." + err);
-  //   else res.render("samchunpo.ejs", { list: rows });
-  // });
   res.render("samchunpo.ejs");
 });
 
