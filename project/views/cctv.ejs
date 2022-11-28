@@ -21,17 +21,14 @@
         </nav>
       </header>
     </div>
-    <h1>삼천포 CCTV 보기</h1>
+    <h1>부산 CCTV 보기</h1>
     <div id="map" style="width: 80%; height: 550px; margin-left: auto; margin-right: auto;"></div>
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
     ></script>
     <script>
-      let list = "<%= JSON.stringify(list) %>";
-      list = list.replaceAll("&#34;", '"');
-      list = JSON.parse(list);
-      console.log(list);
+      
       var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
         mapOption2 = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
