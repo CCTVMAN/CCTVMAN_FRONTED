@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
-//var db_config = require(__dirname + "/config/database.js");
-//var conn = db_config.init();
+// var db_config = require(__dirname + "/config/database.js");
+// var conn = db_config.init();
 
 // db_config.connect(conn);
 app.use(express.static(__dirname + "/public"));
@@ -23,9 +23,9 @@ app.get("/school", function (req, res) {
   // const sql = "select * from ";
   // conn.query(sql, function (err, rows, fields) {
   //   if (err) console.log("oh Error..." + err);
-  //   else res.render("school.ejs", { list: rows });
+  //   else res.render("school.ejs", { list: { asdf: "asddddd" } });
   // });
-  res.render("school.ejs");
+  res.render("school.ejs", { list: { asdf: "asddddd" } });
 });
 app.get("/samchunpo", function (req, res) {
   const sql = "select * from ";
@@ -34,4 +34,5 @@ app.get("/samchunpo", function (req, res) {
     else res.render("samchunpo.ejs", { list: rows });
   });
 });
+
 app.listen(3000, () => console.log("Server is running on port 3000..."));
