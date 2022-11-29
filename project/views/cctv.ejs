@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BusanCCTV</title>
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
   </head>
   <body>
     <div class="container">
@@ -16,33 +16,41 @@
             <li><a href="/">홈으로</a></li>
             <li><a href="/cctv">부산 CCTV 보기</a></li>
             <li><a href="/school">학교 주위의 CCTV보기</a></li>
-              <li><a href="/samchunpo">삼천포 CCTV 보기</a></li>
+            <li><a href="/samchunpo">삼천포 CCTV 보기</a></li>
           </ul>
         </nav>
       </header>
     </div>
     <h1>부산 CCTV 보기</h1>
-    <div id="map" style="width: 80%; height: 550px; margin-left: auto; margin-right: auto;"></div>
+    <div
+      id="map"
+      style="width: 80%; height: 550px; margin-left: auto; margin-right: auto"
+    ></div>
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
     ></script>
     <script>
-      
+      let list = "<%= JSON.stringify(list)%>";
+      list = list.replaceAll("&#34;", '"');
+      list = JSON.parse(list);
       var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
         mapOption2 = {
-          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
+          center: new kakao.maps.LatLng(35.18045366209742, 129.07429302208183), // 지도의 중심좌표
+          level: 5, // 지도의 확대 레벨
         };
       var map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
-      // 마커가 표시될 위치입니다
-      var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-      // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(map2);
+      var position = [];
+      for (let i = 0; i < list.length; i++) {
+        // list에서 좌표 불러서 position에 넣음
+        position.push(new kakao.maps.LatLng(list[i][3], list[i][4]));
+      }
+      for (var i = 0; i < position.length; i++) {
+        var marker = new kakao.maps.Marker({
+          map: map2,
+          position: position[i],
+        });
+      }
     </script>
   </body>
 </html>
