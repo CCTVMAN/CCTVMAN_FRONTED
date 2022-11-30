@@ -23,6 +23,7 @@
     </div>
     <h1>삼천포 CCTV 보기</h1>
     <input type="button" onclick="go()" value="민세집" />
+    <input type="button" onclick="origin()" value="원래 사천으로" />
     <div
       id="map"
       style="width: 80%; height: 550px; margin-left: auto; margin-right: auto"
@@ -32,28 +33,32 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
     ></script>
     <script>
-      //const view = document.querySelector("#map");
       let center1 = 35.08328696718037;
       let center2 = 128.08738240111157;
+      var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
+        mapOption2 = {
+          center: new kakao.maps.LatLng(center1, center2), // 지도의 중심좌표
+          level: 5, // 지도의 확대 레벨
+        };
+      var map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
+      var position = [];
       make(0);
+      function origin() {
+        center1 = 35.08328696718037;
+        enter2 = 128.08738240111157;
+        var moveLatLon = new kakao.maps.LatLng(center1, center2);
+        map2.setCenter(moveLatLon);
+      }
       function go() {
         center1 = 34.947597458403116;
         center2 = 128.08556296655445;
-        /*view.remove();
-        CONST NE = document.createElement('div');*/
-        make(1);
+        var moveLatLon = new kakao.maps.LatLng(center1, center2);
+        map2.setCenter(moveLatLon);
       }
       function make(mode) {
         let list = "<%= JSON.stringify(list)%>";
         list = list.replaceAll("&#34;", '"');
         list = JSON.parse(list);
-        var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
-          mapOption2 = {
-            center: new kakao.maps.LatLng(center1, center2), // 지도의 중심좌표
-            level: 5, // 지도의 확대 레벨
-          };
-        var map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
-        var position = [];
         for (let i = 0; i < list.length; i++) {
           // list에서 좌표 불러서 position에 넣음
           let l = {
@@ -62,16 +67,11 @@
           };
           position.push(l);
         }
-        if (mode) {
-          let l = {
-            title: "민세의 집",
-            latlng: new kakao.maps.LatLng(
-              34.947597458403116,
-              128.08556296655445
-            ),
-          };
-          position.push(l);
-        }
+        let l = {
+          title: "민세 집",
+          latlng: new kakao.maps.LatLng(34.947597458403116, 128.08556296655445),
+        };
+        position.push(l);
         for (let i = 0; i < position.length; i++) {
           var marker = new kakao.maps.Marker({
             map: map2,

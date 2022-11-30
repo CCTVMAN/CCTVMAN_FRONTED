@@ -15,7 +15,7 @@
           <ul>
             <li><a href="/">홈으로</a></li>
             <li><a href="/cctv">부산 CCTV 보기</a></li>
-            <li><a href="/school">학교 주위의 CCTV보기</a></li>
+            <li><a href="/school">학교 주위의 CCTV보기(동래구)</a></li>
             <li><a href="/samchunpo">삼천포 CCTV 보기</a></li>
           </ul>
         </nav>
@@ -34,6 +34,7 @@
       let list = "<%= JSON.stringify(list)%>";
       list = list.replaceAll("&#34;", '"');
       list = JSON.parse(list);
+      console.log(list.length);
       var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
         mapOption2 = {
           center: new kakao.maps.LatLng(35.18045366209742, 129.07429302208183), // 지도의 중심좌표
@@ -43,12 +44,17 @@
       var position = [];
       for (let i = 0; i < list.length; i++) {
         // list에서 좌표 불러서 position에 넣음
-        position.push(new kakao.maps.LatLng(list[i][3], list[i][4]));
+        let l = {
+          title: list[i][1],
+          latlng: new kakao.maps.LatLng(list[i][3], list[i][4]),
+        };
+        position.push(l);
       }
-      for (var i = 0; i < position.length; i++) {
+      for (let i = 0; i < position.length; i++) {
         var marker = new kakao.maps.Marker({
           map: map2,
-          position: position[i],
+          position: position[i].latlng,
+          title: position[i].title,
         });
       }
     </script>

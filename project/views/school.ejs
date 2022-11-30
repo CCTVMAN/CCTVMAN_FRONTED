@@ -15,13 +15,15 @@
           <ul>
             <li><a href="/">홈으로</a></li>
             <li><a href="/cctv">부산 CCTV 보기</a></li>
-            <li><a href="/school">학교 주위의 CCTV보기</a></li>
+            <li><a href="/school">학교 주위의 CCTV보기(동래구)</a></li>
             <li><a href="/samchunpo">삼천포 CCTV 보기</a></li>
           </ul>
         </nav>
       </header>
     </div>
     <h1>학교 주위의 CCTV보기</h1>
+    <input type="submit" value="니네 학교로 가기" onclick="Go()" />
+    <input type="submit" value="돌아가기" onclick="origin()" />
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
@@ -31,28 +33,78 @@
       style="width: 80%; height: 550px; margin-left: auto; margin-right: auto"
     ></div>
     <script>
-      let list = "<%= JSON.stringify(list)%>";
-      list = list.replaceAll("&#34;", '"');
-      list = JSON.parse(list);
       var mapContainer3 = document.getElementById("map3"),
         mapOption3 = {
-          center: new kakao.maps.LatLng(35.20593423088233, 129.07847096658566), // 중심좌표(부산소마고)
+          center: new kakao.maps.LatLng(35.20593423088233, 129.07847096658566),
           level: 5, // 지도의 확대 레벨
         };
 
       var map3 = new kakao.maps.Map(mapContainer3, mapOption3); // 지도를 생성합니다
+      function Go() {
+        var moveLatLon = new kakao.maps.LatLng(
+          35.18914053249148,
+          128.9034392317726
+        );
+        map3.setCenter(moveLatLon);
+      }
+      function origin() {
+        var moveLatLon = new kakao.maps.LatLng(
+          35.20593423088233,
+          129.07847096658566
+        );
+        map3.setCenter(moveLatLon);
+      }
+      function makeOverListener(map, marker, infowindow) {
+        return function () {
+          infowindow.open(map, marker);
+        };
+      }
+
+      function makeOutListener(infowindow) {
+        return function () {
+          infowindow.close();
+        };
+      }
+      let list = "<%= JSON.stringify(list)%>";
+      list = list.replaceAll("&#34;", '"');
+      list = JSON.parse(list);
 
       // 마커가 표시될 위치입니다
       var position = [];
       for (let i = 0; i < list.length; i++) {
         // list에서 좌표 불러서 position에 넣음
-        position.push(new kakao.maps.LatLng(list[i][2], list[i][3]));
+        let l = {
+          content: '<div style="width:100px;">' + list[i][4] + "</div>",
+          latlng: new kakao.maps.LatLng(list[i][2], list[i][3]),
+        };
+        position.push(l);
       }
+      let l = {
+        content:
+          '<div style="width:100px;">' + "대 BSSM(부산소마고)" + "</div>",
+        latlng: new kakao.maps.LatLng(35.18914053249148, 128.9034392317726),
+      };
+      position.push(l);
       for (var i = 0; i < position.length; i++) {
         var marker = new kakao.maps.Marker({
           map: map3,
-          position: position[i],
+          position: position[i].latlng,
         });
+
+        let infowindow = new kakao.maps.InfoWindow({
+          content: position[i].content,
+        });
+
+        kakao.maps.event.addListener(
+          marker,
+          "mouseover",
+          makeOverListener(map3, marker, infowindow)
+        );
+        kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          makeOutListener(infowindow)
+        );
       }
     </script>
   </body>
