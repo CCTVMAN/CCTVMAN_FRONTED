@@ -31,6 +31,7 @@ app.get("/cctv", function (req, res) {
   let sql = "select * from busanaddress";
   fetchData(sql)
     .then((dbRes) => {
+      console.log(dbRes["rows"].length);
       res.render("cctv.ejs", { list: dbRes["rows"] });
     })
     .catch((err) => {
