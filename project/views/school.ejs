@@ -13,17 +13,20 @@
         <h2>CCTV맨</h2>
         <nav>
           <ul>
-            <li><a href="/">홈으로</a></li> &nbsp;  &nbsp;
-            <li><a href="/cctv">부산 CCTV 보기</a></li> &nbsp;  &nbsp;
-            <li><a href="/school">학교 주위의 CCTV보기(동래구)</a></li> &nbsp;  &nbsp;
-            <li><a href="/samchunpo">삼천포 CCTV 보기</a></li> &nbsp;  &nbsp;
+            <li><a href="/">홈으로</a></li>
+            &nbsp; &nbsp;
+            <li><a href="/cctv">부산 CCTV 보기</a></li>
+            &nbsp; &nbsp;
+            <li><a href="/school">학교 주위의 CCTV보기(동래구)</a></li>
+            &nbsp; &nbsp;
+            <li><a href="/samchunpo">삼천포 CCTV 보기</a></li>
+            &nbsp; &nbsp;
           </ul>
         </nav>
       </header>
     </div>
     <h1>학교 주위의 CCTV보기</h1>
-    <input type="submit" value="니네 학교로 가기" onclick="Go()" />
-    <input type="submit" value="돌아가기" onclick="origin()" />
+    <br />
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
@@ -107,5 +110,41 @@
         );
       }
     </script>
+    <div style="text-align: center; margin-top: 100px">
+      <input
+        type="submit"
+        value="니네 학교로 가기"
+        onclick="Go()"
+        style="
+          width: 154px;
+          height: 51px;
+          background: #ffffff;
+          border-radius: 18px;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 900;
+          font-size: 15px;
+          padding: auto;
+        "
+      />
+      <input
+        type="submit"
+        value="돌아가기"
+        onclick="origin()"
+        style="
+          width: 154px;
+          height: 51px;
+          border: none;
+          background: #000000;
+          border-radius: 18px;
+          color: white;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 900;
+          font-size: 15px;
+          padding: auto;
+        "
+      />
+    </div>
   </body>
 </html>
