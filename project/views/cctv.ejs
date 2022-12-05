@@ -29,13 +29,12 @@
     ></div>
     <script
       type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdadc7ae7f717f0f74286d7b010b44ee"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= api%>"
     ></script>
     <script>
       let list = "<%= JSON.stringify(list)%>";
       list = list.replaceAll("&#34;", '"');
       list = JSON.parse(list);
-      console.log(list.length);
       var mapContainer2 = document.getElementById("map"), // 지도를 표시할 div
         mapOption2 = {
           center: new kakao.maps.LatLng(35.18045366209742, 129.07429302208183), // 지도의 중심좌표

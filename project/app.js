@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var oracledb = require("oracledb");
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/views");
@@ -13,9 +14,9 @@ app.use(express.urlencoded({ extended: false }));
 async function fetchData(sql) {
   try {
     const connection = await oracledb.getConnection({
-      user: "c##project",
-      password: "1234",
-      connectString: "10.150.149.87/xe",
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      connectString: process.env.DB_CONNECTSTRING,
     });
     const result = await connection.execute(sql);
     return result;
@@ -31,8 +32,7 @@ app.get("/cctv", function (req, res) {
   let sql = "select * from busanaddress";
   fetchData(sql)
     .then((dbRes) => {
-      console.log(dbRes["rows"].length);
-      res.render("cctv.ejs", { list: dbRes["rows"] });
+      res.render("cctv.ejs", { list: dbRes["rows"], api: process.env.KAKAO_API });
     })
     .catch((err) => {
       console.log(err);
@@ -43,7 +43,7 @@ app.get("/school", function (req, res) {
     "select s.id, s.address, latitude, longitude, s.name from school s, busanaddress b where s.id = b.id";
   fetchData(sql)
     .then((dbRes) => {
-      res.render("school.ejs", { list: dbRes["rows"] });
+      res.render("school.ejs", { list: dbRes["rows"], api: process.env.KAKAO_API });
     })
     .catch((err) => {
       console.log(err);
@@ -53,7 +53,7 @@ app.get("/samchunpo", function (req, res) {
   let sql = "select * from sachancctv";
   fetchData(sql)
     .then((dbRes) => {
-      res.render("samchunpo.ejs", { list: dbRes["rows"] });
+      res.render("samchunpo.ejs", { list: dbRes["rows"], api: process.env.KAKAO_API });
     })
     .catch((err) => {
       console.log(err);
