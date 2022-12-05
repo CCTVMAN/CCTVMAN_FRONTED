@@ -1,3 +1,3 @@
 # CCTVMAN_FRONTED
 
-.gitignore: app.js(서버)
+.gitignore: *.env
